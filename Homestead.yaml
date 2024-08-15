@@ -1,0 +1,25 @@
+ip: 192.168.56.91
+memory: 2048
+cpus: 2
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+  - ~/.ssh/id_rsa
+folders:
+  - map: /home/artak/work/projects/test-taxi/
+    to: /home/vagrant/test-taxi
+sites:
+  - map: taxi_test.loc
+    to: /home/vagrant/test-taxi/public
+    type: 'symfony4'
+databases:
+  - test_taxi
+features:
+  - mariadb: false
+  - postgresql: true
+  - ohmyzsh: false
+  - webdriver: false
+services:
+  - enabled: [ mysql, postgresql ]
+name: test-taxi
+hostname: test-taxi
