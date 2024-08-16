@@ -21,8 +21,11 @@ final class Version20240815135955 extends AbstractMigration
     {
         $table = $schema->createTable('car');
         $table->addColumn('car_id', 'integer', ['unsigned' => true]);
+        $table->addColumn('car_number', 'integer', ['unsigned' => true]);
         $table->addColumn('car_model', 'string')->setNotnull(false);
         $table->addColumn('car_mark', 'string')->setNotnull(false);
+        $table->addColumn('created_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
         $table->setPrimaryKey(['car_id']);
     }
 

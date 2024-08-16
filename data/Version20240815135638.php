@@ -24,6 +24,8 @@ final class Version20240815135638 extends AbstractMigration
         $table->addColumn('car_id', 'integer', ['unsigned' => true]);
         $table->addColumn('full_name', 'string', ['length' => 200]);
         $table->addColumn('date_birth', 'datetime');
+        $table->addColumn('created_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
         $table->setPrimaryKey(['driver_id']);
     }
 

@@ -74,17 +74,14 @@ class Driver
         $this->car = $car;
     }
 
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(): void
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtAutomatically()
     {
-        $this->createdAt = new \DateTimeImmutable();
-        $this->setUpdatedAtValue();
-    }
-
-    #[ORM\PreUpdate]
-    public function setUpdatedAtValue(): void
-    {
-        $this->updatedAt = new \DateTimeImmutable();
+        if (null === $this->getCreatedAt()) {
+            $this->setCreatedAt(new \DateTime());
+        }
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -92,8 +89,30 @@ class Driver
         return $this->createdAt;
     }
 
+    public function setCreatedAt(?DateTimeInterface $timestamp): self
+    {
+        $this->createdAt = $timestamp;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtAutomatically()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeInterface $timestamp): self
+    {
+        $this->updatedAt = $timestamp;
+
+        return $this;
     }
 }

@@ -27,7 +27,7 @@ class CarRepository extends ServiceEntityRepository
         return $qb
             ->setParameter('car_id', $carId)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
     /**
