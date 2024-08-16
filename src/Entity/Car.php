@@ -19,6 +19,7 @@ class Car
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(name: 'car_id', type: Types::INTEGER, nullable: false)]
+    #[ORM\SequenceGenerator(sequenceName: 'car_car_id_seq')]
     private ?int $carId = null;
 
     #[Assert\NotBlank]
