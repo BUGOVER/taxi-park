@@ -42,4 +42,5 @@ services:
   - enabled: [ postgresql ]
 
 name: test-taxi
-hostname: test-taxi
+hostname: test-taxi.loc
+hosts_file_additions: true

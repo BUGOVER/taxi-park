@@ -1,18 +1,24 @@
+version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   database:
-    ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
-
-###> symfony/mailer ###
-  mailer:
-    image: axllent/mailpit
-    ports:
-      - "1025"
-      - "8025"
+    container_name: postgres
+    image: postgres:15
     environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+
+  nginx:
+    image: nginx:1.24-alpine
+    ports:
+      - 3000:80
+    volumes:
+      - ./.docker/conf/nginx/taxi-park.conf:/etc/nginx/conf.d/taxi-park.conf
+    depends_on:
+      - database
+
+###< doctrine/doctrine-bundle ###
