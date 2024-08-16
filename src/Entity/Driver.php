@@ -31,6 +31,14 @@ class Driver
     #[ORM\JoinColumn(name: 'car_id', referencedColumnName: 'car_id', nullable: false)]
     private ?Car $car = null;
 
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'updated_at', type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getDriverId(): ?int
     {
         return $this->driverId;
@@ -64,5 +72,28 @@ class Driver
     public function setCar(Car $car): void
     {
         $this->car = $car;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->setUpdatedAtValue();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 }
