@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Car;
 use App\Entity\Driver;
 use App\Exceptions\ServerException;
 use App\Repository\CarRepository;
+use App\Requests\CreateCarDTO;
 use App\Requests\CreateDriverDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class QueryService
 {
@@ -38,7 +41,7 @@ class QueryService
         try {
             $this->entityManager->persist($driver);
             $this->entityManager->flush();
-        } catch (\Throwable $throwable) {
+        } catch (Throwable $throwable) {
             throw new ServerException($throwable);
         }
 
@@ -66,5 +69,21 @@ class QueryService
         $this->entityManager->flush();
 
         return $driver;
+    }
+
+    /**
+     * @param CreateCarDTO $query
+     * @return Car
+     */
+    public function createCar(CreateCarDTO $query): Car
+    {
+        $car = new Car();
+        $car->setCarMark($query->carMark);
+        $car->setCarModel($query->carModel);
+        $car->setCarNumber($query->carNumber);
+        $this->entityManager->persist($car);
+        $this->entityManager->flush();
+
+        return $car;
     }
 }
