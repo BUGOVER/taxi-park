@@ -86,4 +86,25 @@ class QueryService
 
         return $car;
     }
+
+    /**
+     * @param CreateCarDTO $query
+     * @param int $carId
+     * @return Car
+     */
+    public function editCar(CreateCarDTO $query, int $carId): Car
+    {
+        $car = $this->carRepository->findCarById($carId);
+
+        if (!$car) {
+            throw new ValidationException('Car not found');
+        }
+
+        $car->setCarNumber($query->carNumber);
+        $car->setCarMark($query->carMark);
+        $car->setCarModel($query->carModel);
+        $this->entityManager->flush();
+
+        return $car;
+    }
 }

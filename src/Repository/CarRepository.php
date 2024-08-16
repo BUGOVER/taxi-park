@@ -18,9 +18,9 @@ class CarRepository extends ServiceEntityRepository
 
     /**
      * @param int $carId
-     * @return mixed
+     * @return Car|null
      */
-    public function findCarById(int $carId): mixed
+    public function findCarById(int $carId): ?Car
     {
         $qb = $this->createQueryBuilder('c')->where('c.carId = :car_id');
 
