@@ -18,7 +18,7 @@ class Car
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
-    #[ORM\Column(name: 'car_id', type: Types::INTEGER)]
+    #[ORM\Column(name: 'car_id', type: Types::INTEGER, nullable: false)]
     private ?int $carId = null;
 
     #[Assert\NotBlank]

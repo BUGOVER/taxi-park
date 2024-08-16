@@ -17,16 +17,16 @@ class Driver
     use Timed;
 
     #[Assert\NotBlank]
-    #[ORM\Column(name: 'fullName', type: Types::STRING)]
+    #[ORM\Column(name: 'full_name', type: Types::STRING)]
     private ?string $fullName = null;
 
     #[Assert\NotBlank]
-    #[ORM\Column(name: 'dateBirth', type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(name: 'date_birth', type: Types::DATETIME_IMMUTABLE)]
     private ?DateTimeInterface $dateBirth = null;
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
-    #[ORM\Column(name: 'driver_id', type: Types::INTEGER)]
+    #[ORM\Column(name: 'driver_id', type: Types::INTEGER, nullable: false)]
     private ?int $driverId = null;
 
     #[ORM\OneToOne(targetEntity: Car::class/*, inversedBy: 'driver'*/)]
