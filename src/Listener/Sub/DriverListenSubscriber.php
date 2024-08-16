@@ -8,16 +8,11 @@ use App\Entity\Driver;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Psr\Log\LoggerInterface;
 
 use function React\Promise\resolve;
 
 class DriverListenSubscriber implements EventSubscriber
 {
-    public function __construct()
-    {
-    }
-
     public function getSubscribedEvents()
     {
         return [
@@ -43,7 +38,7 @@ class DriverListenSubscriber implements EventSubscriber
             $changes = $uow->getEntityChangeSet($entity);
 
             if ($changes['car'] ?? false) {
-                // LOG this
+                // @TODO LOG this
             }
         }
     }
