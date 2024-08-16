@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Car;
 use App\Entity\Driver;
+use App\Exceptions\ServerException;
 use App\Repository\CarRepository;
+use App\Requests\CreateCarDTO;
 use App\Requests\CreateDriverDTO;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class QueryService
 {
@@ -22,7 +27,7 @@ class QueryService
     /**
      * @param CreateDriverDTO $dto
      * @return Driver
-     * @throws \Exception
+     * @throws Exception
      */
     public function createDriver(CreateDriverDTO $dto): Driver
     {
@@ -36,14 +41,19 @@ class QueryService
         try {
             $this->entityManager->persist($driver);
             $this->entityManager->flush();
-        } catch (\Exception $exception) {
-            throw new \Exception();
+        } catch (Throwable $throwable) {
+            throw new ServerException($throwable);
         }
 
         return $driver;
     }
 
-    public function editDriver(CreateDriverDTO $dto, int $driverId)
+    /**
+     * @param CreateDriverDTO $dto
+     * @param int $driverId
+     * @return Driver
+     */
+    public function editDriver(CreateDriverDTO $dto, int $driverId): Driver
     {
         /* @var Driver $driver */
         $driver = $this->entityManager->getRepository(Driver::class)->find($driverId);
@@ -59,5 +69,42 @@ class QueryService
         $this->entityManager->flush();
 
         return $driver;
+    }
+
+    /**
+     * @param CreateCarDTO $query
+     * @return Car
+     */
+    public function createCar(CreateCarDTO $query): Car
+    {
+        $car = new Car();
+        $car->setCarMark($query->carMark);
+        $car->setCarModel($query->carModel);
+        $car->setCarNumber($query->carNumber);
+        $this->entityManager->persist($car);
+        $this->entityManager->flush();
+
+        return $car;
+    }
+
+    /**
+     * @param CreateCarDTO $query
+     * @param int $carId
+     * @return Car
+     */
+    public function editCar(CreateCarDTO $query, int $carId): Car
+    {
+        $car = $this->carRepository->findCarById($carId);
+
+        if (!$car) {
+            throw new ValidationException('Car not found');
+        }
+
+        $car->setCarNumber($query->carNumber);
+        $car->setCarMark($query->carMark);
+        $car->setCarModel($query->carModel);
+        $this->entityManager->flush();
+
+        return $car;
     }
 }

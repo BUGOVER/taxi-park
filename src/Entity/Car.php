@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Car
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(name: 'car_id', type: Types::INTEGER)]
     private ?int $carId = null;
 

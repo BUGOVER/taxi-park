@@ -23,7 +23,7 @@ class Driver
     private ?DateTimeInterface $dateBirth = null;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(name: 'driver_id', type: Types::INTEGER)]
     private ?int $driverId = null;
 
