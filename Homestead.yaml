@@ -5,21 +5,42 @@ provider: virtualbox
 authorize: ~/.ssh/id_rsa.pub
 keys:
   - ~/.ssh/id_rsa
+
 folders:
   - map: /home/artak/work/projects/test-taxi/
     to: /home/vagrant/test-taxi
+
 sites:
   - map: taxi_test.loc
     to: /home/vagrant/test-taxi/public
     type: 'symfony4'
+
 databases:
   - test_taxi
+
 features:
-  - mariadb: false
   - postgresql: true
-  - ohmyzsh: false
+  - mysql: false
+  - mariadb: false
+  - minio: false
+  - python: true
   - webdriver: false
+  - rabbitmq: false
+  - docker: false
+  - php5.6: false
+  - php7.0: false
+  - php7.1: false
+  - php7.2: false
+  - php7.3: false
+  - php7.4: false
+  - php8.0: false
+  - php8.1: true
+  - php8.2: true
+  - php8.3: true
+
 services:
-  - enabled: [ mysql, postgresql ]
+  - enabled: [ postgresql ]
+
 name: test-taxi
-hostname: test-taxi
+hostname: test-taxi.loc
+hosts_file_additions: true
