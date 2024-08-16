@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Driver;
+use App\Exceptions\ServerException;
 use App\Repository\CarRepository;
 use App\Requests\CreateDriverDTO;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Illuminate\Validation\ValidationException;
 
 class QueryService
@@ -22,7 +24,7 @@ class QueryService
     /**
      * @param CreateDriverDTO $dto
      * @return Driver
-     * @throws \Exception
+     * @throws Exception
      */
     public function createDriver(CreateDriverDTO $dto): Driver
     {
@@ -36,14 +38,19 @@ class QueryService
         try {
             $this->entityManager->persist($driver);
             $this->entityManager->flush();
-        } catch (\Exception $exception) {
-            throw new \Exception();
+        } catch (\Throwable $throwable) {
+            throw new ServerException($throwable);
         }
 
         return $driver;
     }
 
-    public function editDriver(CreateDriverDTO $dto, int $driverId)
+    /**
+     * @param CreateDriverDTO $dto
+     * @param int $driverId
+     * @return Driver
+     */
+    public function editDriver(CreateDriverDTO $dto, int $driverId): Driver
     {
         /* @var Driver $driver */
         $driver = $this->entityManager->getRepository(Driver::class)->find($driverId);

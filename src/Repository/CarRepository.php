@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Car;
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,5 +28,18 @@ class CarRepository extends ServiceEntityRepository
             ->setParameter('car_id', $carId)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * @param int $page
+     * @param int $perPage
+     * @return Paginator
+     * @throws \Exception
+     */
+    public function pagerForCarsListWith(int $page, int $perPage): Paginator
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return (new Paginator($qb))->paginate($page, $perPage);
     }
 }
