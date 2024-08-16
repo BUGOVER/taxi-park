@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'driver')]
 class Driver
 {
+    use Timed;
+
     #[Assert\NotBlank]
     #[ORM\Column(name: 'fullName', type: Types::STRING)]
     private ?string $fullName = null;
@@ -72,47 +74,5 @@ class Driver
     public function setCar(Car $car): void
     {
         $this->car = $car;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtAutomatically()
-    {
-        if (null === $this->getCreatedAt()) {
-            $this->setCreatedAt(new \DateTime());
-        }
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?DateTimeInterface $timestamp): self
-    {
-        $this->createdAt = $timestamp;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAtAutomatically()
-    {
-        $this->setUpdatedAt(new \DateTime());
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?DateTimeInterface $timestamp): self
-    {
-        $this->updatedAt = $timestamp;
-
-        return $this;
     }
 }

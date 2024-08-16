@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\CarRepository;
-use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'car')]
 class Car
 {
+    use Timed;
+
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(name: 'car_id', type: Types::INTEGER)]
@@ -82,46 +82,5 @@ class Car
     public function setCarModel(?string $carModel): void
     {
         $this->carModel = $carModel;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtAutomatically()
-    {
-        if (null === $this->getCreatedAt()) {
-            $this->setCreatedAt(new DateTime());
-        }
-    }
-
-    public function setCreatedAt(?DateTimeInterface $timestamp): self
-    {
-        $this->createdAt = $timestamp;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAtAutomatically()
-    {
-        $this->setUpdatedAt(new DateTime());
-    }
-
-    public function setUpdatedAt(?DateTimeInterface $timestamp): self
-    {
-        $this->updatedAt = $timestamp;
-
-        return $this;
     }
 }

@@ -27,6 +27,8 @@ final class Version20240815135638 extends AbstractMigration
         $table->addColumn('created_at', 'datetime', ['notnull' => false]);
         $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
         $table->setPrimaryKey(['driver_id']);
+
+        $table->addForeignKeyConstraint('Car', ['car_id'], ['car_id']);
     }
 
     public function down(Schema $schema): void
