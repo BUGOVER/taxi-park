@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
     path: '/car/edit/{carId}',
-    name: 'create_car',
+    name: 'edit_car',
     requirements: ['carId' => '^\d+$'],
     methods: ['PUT']
 )]

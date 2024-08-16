@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
     path: '/driver/edit/{driverId}',
-    name: 'create_drivers',
+    name: 'edit_driver',
     requirements: ['driverId' => '^\d+$'],
     methods: ['PUT']
 )]
