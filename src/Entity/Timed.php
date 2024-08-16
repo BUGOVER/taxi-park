@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 trait Timed
 {
-
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
@@ -20,35 +18,17 @@ trait Timed
     {
         return $this->updatedAt;
     }
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtAutomatically()
+
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
     {
-        if (null === $this->getCreatedAt()) {
-            $this->setCreatedAt(new DateTime());
-        }
+        $this->createdAt = new DateTimeImmutable();
+        $this->setUpdatedAt();
     }
 
-    public function setCreatedAt(?DateTimeInterface $timestamp): self
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): void
     {
-        $this->createdAt = $timestamp;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAtAutomatically()
-    {
-        $this->setUpdatedAt(new DateTime());
-    }
-
-    public function setUpdatedAt(?DateTimeInterface $timestamp): self
-    {
-        $this->updatedAt = $timestamp;
-
-        return $this;
+        $this->updatedAt = new DateTimeImmutable();
     }
 }

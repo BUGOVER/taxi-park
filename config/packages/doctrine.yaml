@@ -23,6 +23,16 @@ doctrine:
         prefix: 'App\Entity'
         alias: App
 
+services:
+  driver.listener:
+    class: App\Listener\DriverListener
+    tags:
+      - { name: doctrine.event_listener, event: postUpdate }
+  driver.subscriber:
+    class: App\Listener\Sub\DriverListenSubscriber
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
 when@test:
   doctrine:
     dbal:

@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DriverRepository::class)]
 #[ORM\Table(name: 'driver')]
+#[ORM\HasLifecycleCallbacks]
 class Driver
 {
     use Timed;

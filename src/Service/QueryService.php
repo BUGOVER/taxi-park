@@ -59,7 +59,7 @@ class QueryService
         $driver = $this->entityManager->getRepository(Driver::class)->find($driverId);
         $car = $this->carRepository->findCarById($dto->currentCarId);
 
-        if (!$driver) {
+        if (!$driver || !$car) {
             throw new ValidationException('Драйвер не найден');
         }
 
