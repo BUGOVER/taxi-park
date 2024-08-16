@@ -10,9 +10,11 @@ use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Psr\Log\LoggerInterface;
 
+use function React\Promise\resolve;
+
 class DriverListenSubscriber implements EventSubscriber
 {
-    public function __construct(private readonly LoggerInterface $logger)
+    public function __construct()
     {
     }
 
@@ -28,7 +30,11 @@ class DriverListenSubscriber implements EventSubscriber
         $this->index($args);
     }
 
-    public function index(LifecycleEventArgs $args)
+    /**
+     * @param LifecycleEventArgs $args
+     * @return void
+     */
+    public function index(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
         if ($entity instanceof Driver) {
@@ -37,7 +43,7 @@ class DriverListenSubscriber implements EventSubscriber
             $changes = $uow->getEntityChangeSet($entity);
 
             if ($changes['car'] ?? false) {
-                $this->logger->info('Driver car is updated');
+                // LOG this
             }
         }
     }
