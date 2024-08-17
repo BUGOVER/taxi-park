@@ -13,7 +13,7 @@ export const SITE_URL = {
   CHANGE_DRIVER: '/change-driver'
 };
 
-export const APP_URL = 'https://taxi_test.loc';
+export const APP_URL = process.env.REACT_APP_API_URL;
 
 export const API_URLS = {
   CREATE_CAR: '/car/create',
