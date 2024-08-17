@@ -38,7 +38,8 @@ class CarRepository extends ServiceEntityRepository
      */
     public function pagerForCarsListWith(int $page, int $perPage): Paginator
     {
-        $qb = $this->createQueryBuilder('c');
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC');
 
         return (new Paginator($qb))->paginate($page, $perPage);
     }

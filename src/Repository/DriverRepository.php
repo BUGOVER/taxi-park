@@ -24,7 +24,9 @@ class DriverRepository extends ServiceEntityRepository
      */
     public function pagerForDriversListWithCars(int $page, int $perPage): Paginator
     {
-        $qb = $this->createQueryBuilder('d')->leftJoin('d.car', 'c');
+        $qb = $this->createQueryBuilder('d')
+            ->leftJoin('d.car', 'c')
+            ->orderBy('d.createdAt', 'DESC');
 
         return (new Paginator($qb))->paginate($page, $perPage);
     }
