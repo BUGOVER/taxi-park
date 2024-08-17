@@ -8,7 +8,7 @@ keys:
 ssl: true
 
 folders:
-  - map: /home/artak/work/projects/test-taxi/
+  - map: /home/artak/work/projects/test-taxi/api
     to: /home/vagrant/test-taxi
 
 sites:
