@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "f54da047-7c74-4854-b609-9426b45e2a39",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4133945",
+		"_collection_link": "https://speeding-equinox-90381.postman.co/workspace/TEST_TAXI~3bf32252-ffce-44af-9e8e-94aef61c8c7a/collection/4133945-f54da047-7c74-4854-b609-9426b45e2a39?action=share&source=collection_link&creator=4133945"
+	},
+	"item": [
+		{
+			"name": "driverspaginate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://taxi_test.loc/drivers/?page=1&perPage=15",
+					"protocol": "http",
+					"host": [
+						"taxi_test",
+						"loc"
+					],
+					"path": [
+						"drivers",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "perPage",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "driverCreate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fullName\": \"fewfefew\",\n    \"dateBirth\": \"21-12-2000\",\n    \"currentCarId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://taxi_test.loc/driver/create",
+					"protocol": "http",
+					"host": [
+						"taxi_test",
+						"loc"
+					],
+					"path": [
+						"driver",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "driverEdit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fullName\": \"poxvacna\",\n    \"dateBirth\": \"21-12-2001\",\n    \"currentCarId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://taxi_test.loc/driver/edit/7",
+					"protocol": "http",
+					"host": [
+						"taxi_test",
+						"loc"
+					],
+					"path": [
+						"driver",
+						"edit",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "carsPaginate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://taxi_test.loc/cars",
+					"protocol": "http",
+					"host": [
+						"taxi_test",
+						"loc"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "carCreate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"carMark\": \"fewfefew\",\n    \"carModel\": \"weffew\",\n    \"carNumber\": \"fewffew\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://taxi_test.loc/car/create",
+					"protocol": "http",
+					"host": [
+						"taxi_test",
+						"loc"
+					],
+					"path": [
+						"car",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "carEdit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"carMark\": \"fewfefew\",\n    \"carModel\": \"weffewfefewfewew\",\n    \"carNumber\": \"fewffew\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://taxi_test.loc/car/edit/1",
+					"protocol": "http",
+					"host": [
+						"taxi_test",
+						"loc"
+					],
+					"path": [
+						"car",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
