@@ -13,7 +13,6 @@ final class CreateDriverDTO
         #[Assert\Length(min: 3, max: 100)]
         public readonly string $fullName,
 
-        #[Assert\Date]
         public readonly string|DateTimeInterface $dateBirth,
 
         public readonly int $currentCarId,
