@@ -12,8 +12,10 @@ final class CreateCarDTO
         #[Assert\Length(min: 3, max: 12)]
         public readonly string $carNumber,
 
+        #[Assert\Length(min: 3, max: 100)]
         public readonly string $carMark,
 
+        #[Assert\Length(min: 3, max: 100)]
         public readonly string $carModel,
     )
     {

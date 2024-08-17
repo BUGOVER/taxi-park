@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Entity\Car;
 use App\Entity\Driver;
+use App\Exceptions\InvalidArgumentsException;
 use App\Exceptions\ServerException;
 use App\Repository\CarRepository;
 use App\Requests\CreateCarDTO;
@@ -32,6 +33,10 @@ class QueryService
     public function createDriver(CreateDriverDTO $dto): Driver
     {
         $car = $this->carRepository->findCarById($dto->currentCarId);
+
+        if (!$car) {
+            throw new InvalidArgumentsException();
+        }
 
         $driver = new Driver();
         $driver->setCar($car);
